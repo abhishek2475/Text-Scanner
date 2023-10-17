@@ -37,4 +37,15 @@ def rescaleImage(img,scale):
 # cv.waitKey(0)
 # cv.destroyAllWindows()
 
-#For Binarization of Image:
+#For GrayScale of Image:
+
+def grayImage(img):
+    img_Gray=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+    return img_Gray
+#For testing the Functionality:
+
+# imgBin=grayImage(img);
+# cv.imshow("Gray Image",imgBin)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+# Was Not working for Binarization i.e. cv.Threesold

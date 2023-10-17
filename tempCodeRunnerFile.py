@@ -1,0 +1,1 @@
+imgBin=binImage(img);
