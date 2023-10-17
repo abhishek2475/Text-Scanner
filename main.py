@@ -48,4 +48,12 @@ def grayImage(img):
 # cv.imshow("Gray Image",imgBin)
 # cv.waitKey(0)
 # cv.destroyAllWindows()
-# Was Not working for Binarization i.e. cv.Threesold
+# Was Not working for Binarization i.e. cv.Threshold
+def binImage(img):
+    imgGray= grayImage(img)
+    imgBinarize=cv.threshold(imgGray,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+    return imgBinarize
+imgBinarize=binImage(img)
+cv.imshow("Binary Image",imgBinarize[1])
+cv.waitKey(0)
+cv.destroyAllWindows()
