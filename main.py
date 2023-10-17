@@ -1,4 +1,6 @@
 import cv2 as cv
+
+
 img=cv.imread('aero3.jpg')
 cv.imshow("First Image",img)
 cv.waitKey(0)
@@ -8,3 +10,31 @@ cv.destroyAllWindows()
 # Creating the Different function for Different functionality
 
 
+# Adding Different Functionalities 
+
+
+#For inverting the image Function:
+def invertImage(img):
+    img_invert=cv.bitwise_not(img)
+    return img_invert
+#Testing the Image
+# img_in=invertImage(img)
+# cv.imshow("Inverted Image",img_in)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+
+#For rescalling the Image
+def rescaleImage(img,scale):
+    width = int (img.shape[1] * scale/ 100 )
+    height = int (img.shape[0] * scale / 100)
+    dim = (width, height)
+    img_Re=cv.resize(img,dim,interpolation=cv.INTER_AREA)
+    return img_Re
+
+#For Testing The Function
+# img_resi=rescaleImage(img,75)
+# cv.imshow("Rescaled Image",img_resi)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+
+#For Binarization of Image:
