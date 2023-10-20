@@ -1,1 +1,2 @@
-imgBin=binImage(img);
+img=removeBorder(img)
+# cv.imshow("noBorder",img)
