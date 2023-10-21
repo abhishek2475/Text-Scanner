@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-import pytesseract as pyt
+import pytesseract 
 
 
 img=cv.imread('whitetext.jpg')
@@ -259,5 +259,12 @@ class All:
         top,bottom,left,right=150*4
         img=cv.copyMakeBorder(img,top,bottom,left,right,cv.BORDER_CONSTANT,value=color)
         return img
-    # text_generated=pyt.image_to_string(img)
-    # print(text_generated)
+    
+    
+    def textExtract(img):
+        img=All.imgDilate(img)
+        text_generated=pytesseract.image_to_string(img)
+        return text_generated
+    
+a=All.textExtract(img)
+print(a)
