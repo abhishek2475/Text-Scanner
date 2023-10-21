@@ -242,6 +242,7 @@ class All:
 
     # Removing Borders
     def removeBorder(img):
+        img=All.grayImage(img)
         contours,heiarchy=cv.findContours(img,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
         cntSorted=sorted(contours,key=lambda x:cv.contourArea(x))
         cnt=cntSorted[-1]
@@ -256,13 +257,21 @@ class All:
     #Add A missing a border
     def addMissBorder(img):
         color=[255,255,255]
-        top,bottom,left,right=150*4
+        top=bottom=left=right=150*4
         img=cv.copyMakeBorder(img,top,bottom,left,right,cv.BORDER_CONSTANT,value=color)
+        return img
+    
+    def preprocess(img):
+        # img=All.binImage(img)
+        img=All.erodeImg(img)
+        img=All.imgDilate(img)
+        img=All.removeBorder(img)
+        img=All.addMissBorder(img)
         return img
     
     
     def textExtract(img):
-        img=All.imgDilate(img)
+        img=All.preprocess(img)
         text_generated=pytesseract.image_to_string(img)
         return text_generated
     

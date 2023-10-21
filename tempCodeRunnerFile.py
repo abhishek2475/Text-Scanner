@@ -1,1 +1,1 @@
-from . import main
+        # img=cv.bitwise_not(img)
