@@ -1,10 +1,13 @@
 import cv2 as cv
 import numpy as np
 import pytesseract 
+from langdetect import detect
+from langdetect import DetectorFactory
+DetectorFactory.seed = 0
 
 
 img=cv.imread('whitetext.jpg')
-cv.imshow("First Image",img)
+
 # cv.waitKey(0)
 # cv.destroyAllWindows()
 
@@ -266,7 +269,7 @@ class All:
         img=All.erodeImg(img)
         img=All.imgDilate(img)
         img=All.removeBorder(img)
-        img=All.addMissBorder(img)
+        # img=All.addMissBorder(img)
         return img
     
     
@@ -274,6 +277,12 @@ class All:
         img=All.preprocess(img)
         text_generated=pytesseract.image_to_string(img)
         return text_generated
-    
+
+img1=All.preprocess(img)
+cv.imshow("First Image",img1)
+cv.waitKey(0)
+cv.destroyAllWindows()
 a=All.textExtract(img)
 print(a)
+b=detect(a)
+print(b)
