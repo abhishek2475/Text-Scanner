@@ -1,0 +1,45 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-size: 1.5rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+    display:flex;
+    flex-direction: column;
+
+}
+header,nav{
+    font-size: 2rem;
+    position:sticky;
+    background-color: black;
+    top:0;
+    display: grid;
+    place-content: center;
+    grid-template-columns: 100%;
+    text-align: center;
+
+}
+.heading{
+    background-color: black;
+    color: white;
+}
+.navitems{
+    list-style-type: none;
+    display: flex;
+    flex-flow: row nowrap;
+    color: white;
+    justify-content: space-evenly;
+    
+}
+li a{
+    text-decoration: none;
+    color: white;
+}

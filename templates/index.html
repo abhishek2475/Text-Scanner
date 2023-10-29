@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
+    <link rel="stylesheet" href="static/frontend.css">
+    <title>Front-end</title>
 </head>
 <body>
-    <p>hello duniya {{ given }}</p>
-    <form method="POST" action="/dilate" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <input type="submit" value="Upload Image">
+  <header class="head">
+    <h1 class="heading">PyScanner </h1> 
+    <nav class="navbar">
+        <ul class="navitems">
+            <li><a href="#home">Home</a></li>
+            <li><a href="info.html" class="info">Info</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav></header>
+    <main class="mainfunction">
+    <form action="/upload" method="post" class="mainform" enctype="multipart/form-data">
+        
+        <div class="fileselect">
+        <label for="selectFile">Select Image:</label>
+        <input type="file" id="#fileUpload" name="fileUpload">
+         <input type="submit" value="upload">
+        </div>
+        <div class="actionButton">
+            <button class="extractText">Extract Text</button>
+        </div>
+        <div class="dispText"><textarea name="extractedArea" id="#extText" cols="180" rows="70">{{  given}}</textarea></div>
+
+
     </form>
-    
+    <!-- <script type="py" src="./main.py" config="./pyscript.json"></script> -->
+    </main>
+  
 </body>
 </html>

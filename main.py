@@ -6,7 +6,7 @@ from langdetect import DetectorFactory
 DetectorFactory.seed = 0
 
 
-img=cv.imread('vehicle1.jpg')
+img=cv.imread('whitetext.jpg')
 
 # cv.waitKey(0)
 # cv.destroyAllWindows()
@@ -268,7 +268,7 @@ class All:
         # img=All.binImage(img)
         img=All.erodeImg(img)
         img=All.imgDilate(img)
-        img=All.removeBorder(img)
+        # img=All.removeBorder(img)
         # img=All.addMissBorder(img)
         return img
     
@@ -279,10 +279,10 @@ class All:
         return text_generated
 
 img1=All.preprocess(img)
-cv.imshow("First Image",img1)
-cv.waitKey(0)
-cv.destroyAllWindows()
-a=All.textExtract(img)
+# cv.imshow("First Image",img1)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+a=All.textExtract(img1)
 print(a)
 if a is None:
     print('No Text Found')
