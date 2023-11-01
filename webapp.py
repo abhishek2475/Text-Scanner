@@ -8,6 +8,7 @@ import io
 from PIL import Image
 import os
 import base64
+import hashlib
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -28,28 +29,46 @@ def index():
     filename = session.get('filenames', '')
     print(filename)
     result = collection.find_one({"filename": filename[-1]})
-    print(result)
-    text=All.textExtract(img1)
-    return render_template("index.html",given=text)
+    print(result['data'])
+    print(type(result))
+    image_stream = io.BytesIO(result['data'])
+    img = Image.open(image_stream)
+    image_np = np.array(img)
+    img.show(img)
 
+    text=All.textExtract(image_np)
+    return render_template("index.html",given=text)
+def calculate_imgbyte(imagef):
+    im = Image.open(imagef)
+    img_byte=io.BytesIO()
+    im.save(img_byte , format='PNG')
+
+    return img_byte.getvalue()
+
+def calculate_hash(image_byte , filename):
+    m = hashlib.sha256()
+    m.update(image_byte)
+    m.update(filename)
+
+    return m.hexdigest()
 @app.route("/upload",methods=['POST'])
 def upload_image():
     try:
         imagef = request.files['fileUpload']
         filename = os.path.basename(imagef.filename)
-        existing_document = collection.find_one({"filename": filename})
+        byte_image = calculate_imgbyte(imagef=imagef)
+        hash = calculate_hash(byte_image , filename.encode())
+        existing_document = collection.find_one({"image_hash": hash})
 
         if existing_document:
             # A document with the same filename already exists
-            return jsonify({"message": "File with the same name already exists."}), 409 , redirect('/') #---check
-        im = Image.open(imagef)
-        img_byte=io.BytesIO()
-        im.save(img_byte , format='PNG')
+            return jsonify({"message": "File with the same name already exists."}), 409 #, redirect('/') #---check
+        
         filenames = session.get('filenames', [])
         filenames.append(filename)
         session['filenames'] = filenames
-        # fs.put(imagef,filename=imagef.filename)
-        image = {'data' : img_byte.getvalue() , 'filename' : filename}
+        image = {'data' :  byte_image, 'filename' : filename , 'image_hash' : hash}
+
         insert_result = collection.insert_one(image)
 
         if insert_result.inserted_id:
