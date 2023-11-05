@@ -9,6 +9,7 @@ from PIL import Image
 import os
 import base64
 import hashlib
+from numberPlate import *
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -34,7 +35,7 @@ def index():
     image_stream = io.BytesIO(result['data'])
     img = Image.open(image_stream)
     image_np = np.array(img)
-    img.show(img)
+    # img.show(img)
 
     text=All.textExtract(image_np)
     return render_template("index.html",given=text)
@@ -84,6 +85,58 @@ def upload_image():
 @app.route("/vehicle")
 def vehicle():
     return render_template("vehicle.html",title="ExtractNumberplate")
+
+@app.route("/uploadV",methods=['post'])
+def uploadV():
+    try:
+        imagef = request.files['fileUpload']
+        filename = os.path.basename(imagef.filename)
+        byte_image = calculate_imgbyte(imagef=imagef)
+        hash = calculate_hash(byte_image , filename.encode())
+        existing_document = collection.find_one({"image_hash": hash})
+
+        if existing_document:
+            # A document with the same filename already exists
+            return jsonify({"message": "File with the same name already exists."}), 409 #, redirect('/') #---check
+        
+        filenames = session.get('filenames', [])
+        filenames.append(filename)
+        session['filenames'] = filenames
+        image = {'data' :  byte_image, 'filename' : filename , 'image_hash' : hash}
+
+        insert_result = collection.insert_one(image)
+
+        if insert_result.inserted_id:
+                # Data was inserted successfully
+                return redirect('/vehicleV')
+        else:
+            # Data insertion failed
+            return "Data insertion failed."
+    except Exception as e:
+         return str(e)
+@app.route('/vehicleV')
+def vehicleV():
+    filename = session.get('filenames', '')
+    # print("Hello tis is Line1")
+    # print(filename)
+    result = collection.find_one({"filename": filename[-1]})
+    # print(filename[-1])
+    # print(result['data'])
+    # print("Hello tis is Line2")
+    # print(type(result))
+    image_stream = io.BytesIO(result['data'])
+    img = Image.open(image_stream)
+    image_np = np.array(img)
+    # img.show(img)
+
+    text=nplate.extractNplate(image_np)
+    # print(text)
+    return render_template("vehicle.html",given=text)
+
+@app.route("/Info")
+def Info():
+     
+    return render_template("Info.html",title="Info Page Only")
 
 
 if __name__ == "__main__":

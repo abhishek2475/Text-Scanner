@@ -19,11 +19,11 @@
             </ul>
         </nav></header>
         <main class="mainfunction">
-            <form action="/upload" class="form-container">
+            <form action="/uploadV" method="post" class="form-container" enctype="multipart/form-data">
                 <label for="selectVehicle">Select Your Vehicle Image:</label>
-                <input type="file" id="uploadFile" name="image" accept=".jpg,.jpeg,.png" class="form-input"/>
+                <input type="file" id="fileUpload" name="fileUpload" accept=".jpg,.jpeg,.png" class="form-input"/>
                 <button class="form-button">Extract Number Plate</button>
-                <textarea name="text" id="numberplate" cols="30" rows="10" class="form-textarea"></textarea>
+                <textarea name="text" id="numberplate" cols="30" rows="10" class="form-textarea">Your Number plate is : {{given}}</textarea>
             </form>
         </main>
   

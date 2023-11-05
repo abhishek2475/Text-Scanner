@@ -6,7 +6,7 @@ from langdetect import DetectorFactory
 DetectorFactory.seed = 0
 
 
-img=cv.imread('whitetext.jpg')
+# img=cv.imread('whitetext.jpg')
 
 # cv.waitKey(0)
 # cv.destroyAllWindows()
@@ -278,14 +278,14 @@ class All:
         text_generated=pytesseract.image_to_string(img)
         return text_generated
 
-img1=All.preprocess(img)
-# cv.imshow("First Image",img1)
-# cv.waitKey(0)
-# cv.destroyAllWindows()
-a=All.textExtract(img1)
-print(a)
-if a is None:
-    print('No Text Found')
-else:
-    b=detect(a)
-    print(b)
+# img1=All.preprocess(img)
+# # cv.imshow("First Image",img1)
+# # cv.waitKey(0)
+# # cv.destroyAllWindows()
+# a=All.textExtract(img1)
+# print(a)
+# if a is None:
+#     print('No Text Found')
+# else:
+#     b=detect(a)
+#     print(b)
