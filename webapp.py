@@ -79,6 +79,11 @@ def upload_image():
             return "Data insertion failed."
     except Exception as e:
          return str(e)
+    
+
+@app.route("/vehicle")
+def vehicle():
+    return render_template("vehicle.html",title="ExtractNumberplate")
 
 
 if __name__ == "__main__":

@@ -15,21 +15,23 @@
         <ul class="navitems">
             <li><a href="#home">Home</a></li>
             <li><a href="info.html" class="info">Info</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{{url_for('vehicle')}}">Vehicle Numberplate Detector</a></li>
+            <li><a href="pdfread.html">Extract From PDF</a></li>
+            <li><a href="usecase.html">Bill Manager</a></li>
         </ul>
     </nav></header>
     <main class="mainfunction">
-    <form action="/upload" method="post" class="mainform" enctype="multipart/form-data">
+    <form action="/upload" method="post" class="form-container" enctype="multipart/form-data">
         
         <div class="fileselect">
         <label for="selectFile">Select Image:</label>
-        <input type="file" id="#fileUpload" name="fileUpload">
-         <input type="submit" value="upload">
+        <input type="file" id="#fileUpload" name="fileUpload" class="form-input">
+         <!-- <input type="submit" value="upload"> -->
         </div>
         <div class="actionButton">
-            <button class="extractText">Extract Text</button>
+            <button class="form-button">Extract Text</button>
         </div>
-        <div class="dispText"><textarea name="extractedArea" id="#extText" cols="180" rows="70">{{  given}}</textarea></div>
+        <div class="dispText"><textarea name="extractedArea" id="#extText" cols="180" rows="70" class="form-textarea"><div class="given-text">{{  given}}</div></textarea></div>
 
 
     </form>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/frontend.css">
+    <title>Extract NumberPlate</title>
+</head>
+<body>
+    <header class="head">
+        <h1 class="heading">PyScanner </h1> 
+        <nav class="navbar">
+            <ul class="navitems">
+                <li><a href="#home">Home</a></li>
+                <li><a href="info.html" class="info">Info</a></li>
+                <li><a href="{{url_for('vehicle')}}">Vehicle Numberplate Detector</a></li>
+                <li><a href="pdfread.html">Extract From PDF</a></li>
+                <li><a href="usecase.html">Bill Manager</a></li>
+            </ul>
+        </nav></header>
+        <main class="mainfunction">
+            <form action="/upload" class="form-container">
+                <label for="selectVehicle">Select Your Vehicle Image:</label>
+                <input type="file" id="uploadFile" name="image" accept=".jpg,.jpeg,.png" class="form-input"/>
+                <button class="form-button">Extract Number Plate</button>
+                <textarea name="text" id="numberplate" cols="30" rows="10" class="form-textarea"></textarea>
+            </form>
+        </main>
+  
+</body>
+</html>
