@@ -16,20 +16,20 @@
             <li><a href="/">Home</a></li>
             <li><a href="{{url_for('Info')}}" class="info">Info</a></li>
             <li><a href="{{url_for('vehicle')}}">Vehicle Numberplate Detector</a></li>
-            <li><a href="{{url_for('pdfext')}}">Extract From PDF</a></li>
+            <li><a href="pdfread.html">Extract From PDF</a></li>
             <li><a href="usecase.html">Bill Manager</a></li>
         </ul>
     </nav></header>
     <main class="mainfunction">
-    <form action="/upload" method="post" class="form-container" enctype="multipart/form-data">
+    <form action="/uploadP" method="post" class="form-container" enctype="multipart/form-data">
         
         <div class="fileselect">
-        <label for="selectFile">Select Image:</label>
-        <input type="file" id="fileUpload" name="fileUpload" class="form-input">
+        <label for="selectFile">Select Your Pdf File:</label>
+        <input type="file" id="fileUpload" name="fileUpload" class="form-input" accept=".pdf">
          <!-- <input type="submit" value="upload"> -->
         </div>
         <div class="actionButton">
-            <button class="form-button">Extract Text</button>
+            <button class="form-button">Extract Text From Your PDF</button>
         </div>
         <div class="dispText"><textarea name="extractedArea" id="#extText" cols="180" rows="70" class="form-textarea">{{  given}}</textarea></div>
 
