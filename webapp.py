@@ -40,9 +40,9 @@ def index():
     img = Image.open(image_stream)
     image_np = np.array(img)
     # img.show(img)
-
     text=All.textExtract(image_np)
-    return render_template("index.html",given=text)
+    lang=All.langDetect(text)
+    return render_template("index.html",given=text,language=lang)
 def calculate_imgbyte(imagef):
     im = Image.open(imagef)
     img_byte=io.BytesIO()
@@ -193,13 +193,13 @@ def uploadP():
 def extPdf():
     filename = session.get('filenames', '')
     result = collection.find_one({"filename": filename[-1]})
-    print(result['data'])
+    # print(result['data'])
     pdf_stream = io.BytesIO(result['data'])
     pdf_content = pdf_stream.getvalue()
     # pdf_document = fitz.open(pdf_stream)
     text=textPdf.extTEXT(pdf_content)
-    print(text)
-    return render_template("pdfext.html",given=text)
+    lang=All.langDetect(text)
+    return render_template("pdfext.html",given=text,language=lang)
 
 
 

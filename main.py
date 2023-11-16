@@ -1,12 +1,13 @@
 import cv2 as cv
 import numpy as np
 import pytesseract 
+from textblob import TextBlob
 from langdetect import detect
 from langdetect import DetectorFactory
 DetectorFactory.seed = 0
 
 
-# img=cv.imread('whitetext.jpg')
+img=cv.imread('whitetext.jpg')
 
 # cv.waitKey(0)
 # cv.destroyAllWindows()
@@ -168,8 +169,10 @@ class All:
     # Was Not working for Binarization i.e. cv.Threshold
     def binImage(img):
         imgGray= All.grayImage(img)
-        imgBinarize=cv.threshold(imgGray,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
-        return imgBinarize
+        threshold_value = 128
+        _, binary_image = cv.threshold(imgGray, threshold_value, 255, cv.THRESH_BINARY)
+        #imgBinarize=cv.threshold(imgGray,128,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+        return binary_image
     # imgbin=binImage(img)
     # cv.imshow("Binary Image",imgbin[1])
     # cv.waitKey(0)
@@ -179,7 +182,7 @@ class All:
     # Thickening of font 
     #we use erodion
     def erodeImg(img):
-        img=cv.bitwise_not(img)
+        img=All.binImage(img)
         kernel=np.ones((1,1),np.uint8)
         img=cv.erode(img,kernel,iterations=1)
         return img
@@ -260,7 +263,7 @@ class All:
     #Add A missing a border
     def addMissBorder(img):
         color=[255,255,255]
-        top=bottom=left=right=150*4
+        top=bottom=left=right=75*4
         img=cv.copyMakeBorder(img,top,bottom,left,right,cv.BORDER_CONSTANT,value=color)
         return img
     
@@ -277,6 +280,16 @@ class All:
         img=All.preprocess(img)
         text_generated=pytesseract.image_to_string(img)
         return text_generated
+    
+
+    def langDetect(text):
+
+        lang = detect(text);
+        # language=lang.detect_language()
+
+        d={"en":"English","fr":"French","it":"Italian","es":"Spanish","ja":"Japanese","ko":"Korean","pt":"Portuguese",None:"No Language Detected"}
+        return d[lang]
+
 
 # img1=All.preprocess(img)
 # # cv.imshow("First Image",img1)
@@ -289,3 +302,8 @@ class All:
 # else:
 #     b=detect(a)
 #     print(b)
+# cv.imshow("Image to be Preprocessed",img)
+# imgx=All.grayImage(img)
+# cv.imshow("Grayscale Image",imgx)
+# cv.waitKey(0)
+# cv.destroyAllWindows()

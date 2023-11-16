@@ -15,7 +15,7 @@
                 <li><a href="{{url_for('Info')}}" class="info">Info</a></li>
                 <li><a href="{{url_for('vehicle')}}">Vehicle Numberplate Detector</a></li>
                 <li><a href="{{url_for('pdfext')}}">Extract From PDF</a></li>
-                <li><a href="usecase.html">Bill Manager</a></li>
+                
             </ul>
         </nav></header>
         <main class="mainfunction">
@@ -25,6 +25,25 @@
                 <button class="form-button">Extract Number Plate</button>
                 <textarea name="text" id="numberplate" cols="30" rows="10" class="form-textarea">Your Number plate is : {{given}}</textarea>
             </form>
+
+            <button onclick="copyToClipboard()" class="clipboardButton" >Copy to Clipboard</button>
+
+        <script>
+            function copyToClipboard() {
+                // Get the textarea element
+                var textarea = document.getElementById("extText");
+    
+                // Select the text in the textarea
+                textarea.select();
+                textarea.setSelectionRange(0, 99999); /*For mobile devices*/
+    
+                // Copy the selected text to the clipboard
+                document.execCommand("copy");
+    
+                // Alert the user that the text has been copied (optional)
+                // alert("Text has been copied to the clipboard: " + textarea.value);
+            }
+        </script>
         </main>
   
 </body>
