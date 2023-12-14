@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
+    <link rel="stylesheet" href="static/frontend.css">
+    <title>Front-end</title>
+</head>
+<body>
+  <header class="head">
+    <h1 class="heading">PyScanner </h1> 
+    <nav class="navbar">
+        <ul class="navitems">
+            <li><a href="/">Home</a></li>
+            <li><a href="{{url_for('Info')}}" class="info">Info</a></li>
+            <li><a href="{{url_for('vehicle')}}">Vehicle Numberplate Detector</a></li>
+            <li><a href="{{url_for('pdfext')}}">Extract From PDF</a></li>
+        </ul>
+    </nav></header>
+    <main class="mainfunction">
+    <form action="/uploadP" method="post" class="form-container" enctype="multipart/form-data">
+        
+        <div class="fileselect">
+        <label for="selectFile">Select Your Pdf File:</label>
+        <input type="file" id="fileUpload" name="fileUpload" class="form-input" accept=".pdf">
+         <!-- <input type="submit" value="upload"> -->
+        </div>
+        <div class="actionButton">
+            <button class="form-button">Extract Text From Your PDF</button>
+        </div>
+        <div class="dispText"><textarea name="extractedArea" id="extText" cols="180" rows="70" class="form-textarea">{{  given}}</textarea></div></form>
+        <div class="dispText"><textarea name="extractedArea" id="langextText" cols="40" rows="40" class="lang-textarea"> The language Detected is {{  language}}</textarea></div>
+
+        <button onclick="copyToClipboard()" class="clipboardButton" >Copy to Clipboard</button>
+
+        <script>
+            function copyToClipboard() {
+                // Get the textarea element
+                var textarea = document.getElementById("extText");
+    
+                // Select the text in the textarea
+                textarea.select();
+                textarea.setSelectionRange(0, 99999); /*For mobile devices*/
+    
+                // Copy the selected text to the clipboard
+                document.execCommand("copy");
+    
+                // Alert the user that the text has been copied (optional)
+                // alert("Text has been copied to the clipboard: " + textarea.value);
+            }
+        </script>
+
+
+    
+    <!-- <script type="py" src="./main.py" config="./pyscript.json"></script> -->
+    </main>
+  
+</body>
+</html>
